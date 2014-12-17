@@ -31,9 +31,13 @@ module Napa
       end
 
       def target_swagger_url env
-        swagger_api_uri = env['REQUEST_URI'].gsub api_doc_path, '/swagger_doc'
+        swagger_api_uri = "#{base_url}/swagger_doc"
 
         "#{ENV['SWAGGER_UI_URL']}?swagger_doc=#{swagger_api_uri}"
+      end
+
+      def base_url
+        @base_url ||= "#{env['rack.url_scheme']}://#{env['HTTP_HOST']}"
       end
     end
   end
